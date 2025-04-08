@@ -7,3 +7,4 @@ Lia's Tasks:
 Meaghan's Tasks:
 -[ ] first cleanup pass
 -[ ] C-instructions
+-[ ] tables
