@@ -33,6 +33,7 @@ public class HashCreator {
             line = sc.nextLine();
             line = line.trim();
             String[] pair = line.split("_");
+            //puts key/value pairs in the appropriate hashtable
             if(fileName.contains("comp.txt")) {
                 comp.put(pair[0], pair[1]);
             } else if(fileName.contains("dest.txt")){
@@ -46,6 +47,7 @@ public class HashCreator {
 
     }
 
+    //adds variable to symbol table
     public void addVariable(String key, String val) {
         comp.put(key, val);
     }
