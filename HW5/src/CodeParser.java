@@ -14,9 +14,27 @@ public class CodeParser {
         s = s.trim();
 
 
-        if(!s.isEmpty()){
-            if(s.charAt(0) != '/' && s.charAt(1) != '/' ){
-
+        if(!s.isEmpty()){//checks if whitespace
+            if(s.charAt(0) != '/' && s.charAt(1) != '/' ){ //checks if comment
+                if(s.contains("@")){ // check if A-instruction
+                    dest = s.substring(s.indexOf('@') + 1);
+                } else { // else, C-instruction
+                    if(s.contains("=")) {
+                        String[] cParts = s.split("=");
+                        dest = cParts[0];
+                        if(cParts[1].contains(";")){
+                            parseJump(cParts[1]);
+                        } else {
+                            comp = cParts[1].split("/")[0].trim();
+                        }
+                    } else if(s.contains("+") || s.contains("-")) {
+                        comp = s.split("/")[0].trim();
+                    } else if(s.contains(";")) {
+                        parseJump(s);
+                    } else {
+                        jump = s.split("/")[0].trim();
+                    }
+                }
                 return true;
             }
         }
@@ -25,6 +43,17 @@ public class CodeParser {
 
     private void parseJump(String s) {
         //parses the jump instr into jump and comp values
+        String[] jumpPart = s.split(";");
+        comp = jumpPart[0];
+        jump = jumpPart[1];
     }
 
+    //getters for use by HackAssembler class
+    public String getComp() {return comp;}
+
+    public String getDest() {return dest;}
+
+    public String getJump() {return jump;}
+
+    public String getAddr() {return addr;}
 }
