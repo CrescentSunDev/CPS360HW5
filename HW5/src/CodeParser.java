@@ -8,6 +8,13 @@
 public class CodeParser {
     private String comp, dest, jump, addr;
 
+    public CodeParser () {
+        comp = "";
+        dest = "";
+        jump = "";
+        addr = "";
+    }
+
 // parses a line of code, represented by a String s, into the correct sections and returns true
 // if the parse is successful and false if it cannot be parsed
     public boolean parse(String s) {
@@ -16,7 +23,7 @@ public class CodeParser {
         if(!s.isEmpty()){//checks if whitespace
             if(s.charAt(0) != '/' && s.charAt(1) != '/' ){ //checks if comment
                 if(s.contains("@")){ // check if A-instruction
-                    dest = s.substring(s.indexOf('@') + 1);
+                    addr = s.substring(s.indexOf('@') + 1);
                 } else { // else, C-instruction
                     if(s.contains("=")) {
                         String[] cParts = s.split("=");
