@@ -1,6 +1,7 @@
 // HashCreator.java
 // Contributor(s):
 // Meagan Callahan - created outline of class and class file
+//Justin Deines - added inline comment removal
 // Desc: this class takes in a line of code and parses it into the correct sections,
 // comp, dest, and jump for c-instructions or addr for A-instructions. These sections can
 // then be accessed and translated
@@ -18,6 +19,7 @@ public class CodeParser {
 // parses a line of code, represented by a String s, into the correct sections and returns true
 // if the parse is successful and false if it cannot be parsed
     public boolean parse(String s) {
+        s = s.split("//")[0]; //remove inline comments
         s = s.trim();
 
         if(!s.isEmpty()){//checks if whitespace
@@ -27,7 +29,8 @@ public class CodeParser {
                 } else { // else, C-instruction
                     if(s.contains("=")) {
                         String[] cParts = s.split("=");
-                        dest = cParts[0];
+                        //remove inline comments
+                        dest = cParts[0].trim();
                         if(cParts[1].contains(";")){ //if jump command, parse jump
                             parseJump(cParts[1]);
                         } else {
@@ -40,6 +43,10 @@ public class CodeParser {
                     } else {
                         jump = s.trim();
                     }
+                    if (jump.isEmpty()) {
+                        jump = "null";
+                    }
+
                 }
                 return true;
             }
@@ -50,8 +57,9 @@ public class CodeParser {
     private void parseJump(String s) {
         //parses the jump instr into jump and comp values
         String[] jumpPart = s.split(";");
-        comp = jumpPart[0];
-        jump = jumpPart[1];
+        comp = jumpPart[0].trim();
+        dest = "null";
+        jump =  jumpPart[1].trim();
     }
 
     //getters for use by HackAssembler class
@@ -60,6 +68,4 @@ public class CodeParser {
     public String getDest() {return dest;}
 
     public String getJump() {return jump;}
-
-    public String getAddr() {return addr;}
 }

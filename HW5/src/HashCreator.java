@@ -52,18 +52,6 @@ public class HashCreator {
         }
     }
     //adds variable to symbol table
-    public void addComp(String key, String val) {
-        comp.put(key, val);
-    }
-
-    public void addDest(String key, String val){
-        dest.put(key, val);
-    }
-
-    public void addJump(String key, String val) {
-        jump.put(key, val);
-    }
-
     public void addSymbol(String key, String val) {
         symbol.put(key, val);
     }

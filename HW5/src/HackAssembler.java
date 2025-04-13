@@ -1,6 +1,7 @@
 //Assignment: HW5, Hack assembler
 //Group members: Justin Deines and Meagan Callahan
 //Pseudocode left in comments to show work
+//Jusin Deines - Wrote this class
 
 
 import java.io.BufferedReader;
@@ -32,7 +33,6 @@ public class HackAssembler {
             while (sc.hasNextLine()){
                 CodeParser p = new CodeParser();
                 String line = sc.nextLine();
-                System.out.println("pass 1: " + line);
 
                 //if line is not empty or a comment
                 if(p.parse(line)){
@@ -63,7 +63,6 @@ public class HackAssembler {
             while (sc.hasNextLine()) {
                 CodeParser p = new CodeParser();
                 String line = sc.nextLine().trim();
-                System.out.println("pass 2: " + line);
 
                 if (p.parse(line) && !line.startsWith("(")) {
                     if (line.startsWith("@")) { // A-instruction
@@ -82,14 +81,12 @@ public class HackAssembler {
                             binary = padBinary(symbolValue);
                         }
                         out.println(binary);
-                        System.out.println("A-instruction: " + binary);
                     } else { // C-instruction
                         String comp = h.getComp(p.getComp());
                         String dest = h.getDest(p.getDest());
                         String jump = h.getJump(p.getJump());
                         String binary = padBinary("111" + comp + dest + jump);
                         out.println(binary);
-                        System.out.println("C-instruction: " + binary);
                     }
                 }
                 lineCount++;
